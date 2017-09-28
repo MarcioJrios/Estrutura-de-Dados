@@ -21,10 +21,9 @@ typedef struct _lista{
 	TpNodo *last;
 } TpLista;
 
-TpNodo *push(TpLista *u){
+TpLista *push(TpLista *u){
 	TpNodo *v = (TpNodo *)malloc(sizeof(TpNodo));
-	v->prox=u.first;
-	v->prev=NULL;
+	v->prox=u->first;
 	system("clear");
 	__fpurge(stdin);
 	printf("Codigo do produto: ");
@@ -36,32 +35,34 @@ TpNodo *push(TpLista *u){
 	printf("Preco do produto: R$ ");
 	scanf("%f", &v->info.preco);
 	system("clear");
-	if(nItens == 0){
-		u.first = v;
-		u.last = v;
-	else{
-		first = v;}
-	return v;
-
+	if(u->nItens == 0){
+		u->first = v;
+		u->last = v;
+	}else
+		u->first = v;
+	return u;
+}
 void *pop(TpLista *u){
 	int i, n;
 	printf("Digite o codigo do produto que deseja remover: \n");
+	if(u->first == NULL && u->last == NULL){
+		printf("Lista Vazia!\n");
+		return u;
+	}
 	scanf("%d", &n);
 	TpLista *ant, *aux;
-	if(u.first == NULL && u.last == NULL){
-		printf("Não encontrado!\n");
-	for(aux = u ; aux.last != NULL && aux.first != NULL; aux = aux->prox){
-		if(aux->info.cod == n){
+	for(aux = u ; aux->first != NULL; aux->first = aux->first->prox){
+		if(aux->first->info.cod == n){
 			break;
 		}
 		ant = aux;
 	}
-	if(aux == u){
-		u = u->prox;
+	if(aux->first == u->first){
+		u->first = u->first->prox;
 		printf("Elemento de codigo [%d] removido com sucesso!\n", n);
 	}
 	else{
-		ant->prox = aux->prox;
+		ant->first->prox = aux->first->prox;
 		printf("Elemento de codigo [%d] removido com sucesso!\n", n);
 	}
 	free(aux);
@@ -69,12 +70,21 @@ void *pop(TpLista *u){
 	return u;
 }
 
+void display(TpLista *u){
+	system("clear");
+	TpLista *aux = (TpLista *)malloc(sizeof(TpLista));
+	for(aux=u; aux->first !=NULL;aux->first = aux->first->prox){
+		printf("Codigo: %d\n", (aux->first->info.cod));
+		printf("Nome: %s\nPreco: R$ %.2f\n", (aux->first->info.nome), (aux->first->info.preco));
+	}
+}
+
 int main(){
 	int n;
-	TpLista *u;
-	u.first = NULL;
-	u.last = NULL;
-	u.nItens;
+	TpLista *u = (TpLista *)malloc(sizeof(TpLista));
+	u->first = NULL;
+	u->last = NULL;
+	u->nItens = 0;
 	do{
 		puts("\t\tMENU\n");
 		puts("1: Para inserir um produto na pilha;");
@@ -86,6 +96,7 @@ int main(){
 		switch(n){
 			case 1:
 				u=push(u);
+				u->nItens++;
 				break;
 				system("clear");
 			case 2:
