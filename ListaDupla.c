@@ -23,7 +23,6 @@ typedef struct _lista{
 
 TpLista *push(TpLista *u){
 	TpNodo *v = (TpNodo *)malloc(sizeof(TpNodo));
-	puts("AAFASFAF");
 	if(u->nItens == 0){
 		u->first = v;
 	}else{
@@ -57,21 +56,20 @@ TpLista *push(TpLista *u){
 }
 void *pop(TpLista *u){
 	int n;
-	printf("Digite o codigo do produto que deseja remover: \n");
 	if(u->nItens == 0){
 		printf("Lista Vazia!\n");
 		return u;
 	}
+	printf("Digite o codigo do produto que deseja remover: \n");
 	scanf("%d", &n);
 	TpNodo *aux2;
-	TpLista *aux1;
-	aux1 = u;
-	if(u->nItens == 1 && u->first->info.cod == n){
-		puts("AKOAKFOAJFA");
-		u->first = u->first->prox;
+	TpLista aux1;
+	aux1 = *u;
+	if(u->first->prox == NULL && u->first->prev == NULL && u->first->info.cod == n){	
+		u->first = NULL;
 		u->nItens=0;
 		printf("Elemento de codigo [%d] removido com sucesso!\n", n);
-		puts("aushduahsdu");
+		return u;
 	}else{
 		while(u->first != NULL){
 			
@@ -106,30 +104,33 @@ void *pop(TpLista *u){
 						return u;
 					}
 				}
-			aux1 = u;
+			aux1 = *u;
 			u->first = u->first->prox;
 		}
 				
 	}
 	if(u->first == NULL && u->nItens > 0)
-		u = aux1;
+		*u = aux1;
 	while(u->first->prev != NULL){
 		u->first = u->first->prev;
 		}
 	printf("Elemento de código %d não encontrado", n);
-	system("sleep 2");
+	system("sleep 1");
 	return u;
 }
 
 TpLista *display(TpLista *u){
 	system("clear");
-	TpLista *aux = (TpLista *)malloc(sizeof(TpLista));
-	aux = u;
+	TpLista aux = *u;
+	if(u->nItens == 0){
+			puts("Lista Vazia");
+			return u;
+	}
 	for(; u->first !=NULL;u->first = u->first->prox){
 		printf("Codigo: %d\n", (u->first->info.cod));
 		printf("Nome: %s\nPreco: R$ %.2f\n", (u->first->info.nome), (u->first->info.preco));
 	}
-		u = aux;
+		*u = aux;
 		return u;
 }
 
