@@ -220,18 +220,21 @@ TpLista *selectionSort(TpLista *u){
 
 void *insertionSort(TpLista *u){
 	system("clear");
-	int i, j;
+	int i, j, n = u->nItens;
 	TpNodo *atual, *ant, *proximo, *aux, *aux2;
 	u->first = u->first->prox;
-	for(i = 1, j=i; i < u->nItens; i++){
+	for(i = 1, j=i; i < n; i++){
+		puts("H\n");
 		for(; j<i ; u->first = u->first->prox, j++){
 		}
 		j=i;
 		while(u->first->prev != NULL && u->first->prev > u->first){
+			puts("A\n");
 			atual = u->first;
 			ant = u->first->prev;
 			proximo = u->first->prox;
 			if(u->first->prox == NULL){
+				puts("B\n");
 				u->first = u->first->prev;
 				u->first = u->last;
 				u->last = atual;
@@ -241,6 +244,7 @@ void *insertionSort(TpLista *u){
 				u->last->prox = NULL;
 				j--;		
 			}else {
+				puts("C\n");
 				u->first = u->first->prev;
 				u->first->prox = atual;
 				u->first->prev = ant->prev;
@@ -255,8 +259,8 @@ void *insertionSort(TpLista *u){
 		
 		
 	}
+	return u;
 }
-
 int main(){
 	int n;
 	TpLista *u = (TpLista *)malloc(sizeof(TpLista));
