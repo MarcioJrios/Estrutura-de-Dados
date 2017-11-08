@@ -217,35 +217,43 @@ TpLista *selectionSort(TpLista *u){
 	prox = u->last->prev;
 	
 }*/
+
 void *insertionSort(TpLista *u){
 	system("clear");
-	int i;
+	int i, j;
 	TpNodo *atual, *ant, *proximo, *aux, *aux2;
-	for(i = 1; i < u->nItens; i++){
-		while(u->first->prev != NULL && u->first->prox < u->first){
+	u->first = u->first->prox;
+	for(i = 1, j=i; i < u->nItens; i++){
+		for(; j<i ; u->first = u->first->prox, j++){
+		}
+		j=i;
+		while(u->first->prev != NULL && u->first->prev > u->first){
 			atual = u->first;
 			ant = u->first->prev;
-			proximo = u->first-prox;
-			if(aux->prox == NULL){
+			proximo = u->first->prox;
+			if(u->first->prox == NULL){
+				u->first = u->first->prev;
 				u->first = u->last;
 				u->last = atual;
 				u->first->prev = atual->prev;
 				u->first->prox = u->last;
 				u->last->prev = u->first;
-				u->last->next = NULL;
-				u->first = u->first->prev;		
+				u->last->prox = NULL;
+				j--;		
 			}else {
-				u->first = u->first->prox;
+				u->first = u->first->prev;
 				u->first->prox = atual;
-				u->first->prev = atual->prev;
+				u->first->prev = ant->prev;
 				u->first = u->first->prox;
-				u->first->prev = proximo->prev;
-				u->first->prox = proximo->prox;
+				u->first->prev = atual->prev;
+				u->first->prox = atual->prox;
 				u->first = u->first->prev;
-				u->first = u->first->prev;
+				j--;
 			}
 		}
 		//Ultima alteração         *Arrumar o first
+		
+		
 	}
 }
 
