@@ -228,7 +228,7 @@ void *insertionSort(TpLista *u){
 		for(; j<i ; u->first = u->first->prox, j++){
 		}
 		j=i;
-		while(u->first->prev != NULL && u->first->prev > u->first){
+		while(u->first->prev != NULL && u->first->prev->info.cod > u->first->info.cod){
 			puts("A\n");
 			atual = u->first;
 			ant = u->first->prev;
@@ -238,19 +238,30 @@ void *insertionSort(TpLista *u){
 				u->first = u->first->prev;
 				u->first = u->last;
 				u->last = atual;
-				u->first->prev = atual->prev;
+				u->first->prev = ant->prev;
 				u->first->prox = u->last;
 				u->last->prev = u->first;
 				u->last->prox = NULL;
 				j--;		
 			}else {
 				puts("C\n");
-				u->first = u->first->prev;
-				u->first->prox = atual;
+				u->first->prox = atual->prev;
 				u->first->prev = ant->prev;
+				aux = u->first;
+				u->first = u->first->prev;
+				u->first->prox = aux;
 				u->first = u->first->prox;
-				u->first->prev = atual->prev;
-				u->first->prox = atual->prox;
+				u->first = u->first->prox;
+				u->first->prox = proximo;
+				u->first->prev = aux;
+				aux = u->first;
+				u->first = u->first->prox;
+				u->first->prev = aux;
+				/*if(u->first->prev != NULL){
+					u->first = u->first->prev;
+					u->first->prox = aux;
+					u->first = u->first->prox;
+				}*/
 				u->first = u->first->prev;
 				j--;
 			}
@@ -272,7 +283,7 @@ int main(){
 		puts("1: Para inserir um produto na pilha;");
 		puts("2: Para extrair um elemento da pilha;");
 		puts("3: Para listar todos os campos dos elementos da pilha;");
-        puts("4: Para ordenar por Selection Sort;");
+        puts("4: Para ordenar por Insertion Sort;");
 		puts("0: Sair.\n");
 		puts("Digite a opção desejada:");
 		scanf("%d", &n);
@@ -290,7 +301,7 @@ int main(){
 				break;
             case 4:
                 system("clear");
-                u=selectionSort(u);
+                u=insertionSort(u);
                 break;
 			case 0:
 				system("clear");
