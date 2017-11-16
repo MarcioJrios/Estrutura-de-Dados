@@ -215,42 +215,78 @@ TpLista *selectionSort(TpLista *u){
 	atual = u->last;
 	ant = u->last->prox;
 	prox = u->last->prev;
-	
+
 }*/
 
 void *insertionSort(TpLista *u){
 	system("clear");
 	int i, j, n = u->nItens;
-	TpNodo *atual, *ant, *proximo, *aux, *aux2;
+	TpNodo *atual, ant, *proximo, *aux, *aux2;
 	u->first = u->first->prox;
 	for(i = 1, j=i; i < n; i++){
 		puts("H\n");
-		for(; j<i ; u->first = u->first->prox, j++){
+		for(; j<i ; j++){
+			u->first = u->first->prox;
+			puts("J");
 		}
+
+		puts("P");
 		j=i;
 		while(u->first->prev != NULL && u->first->prev->info.cod > u->first->info.cod){
 			puts("A\n");
 			atual = u->first;
-			ant = u->first->prev;
+			ant = *u->first->prev;
 			proximo = u->first->prox;
 			if(u->first->prox == NULL){
 				puts("B\n");
 				u->first = u->first->prev;
-				u->first = u->last;
-				u->last = atual;
-				u->first->prev = ant->prev;
+				u->first->prox = NULL;
+                u->first->prev = atual;
+                aux = u->first;
+				u->last = u->first;
+				u->first = u->first->prev;
 				u->first->prox = u->last;
-				u->last->prev = u->first;
-				u->last->prox = NULL;
-				j--;		
+                u->first->prev = ant.prev;
+                aux2 = u->first;
+                u->first = u->first->prev;
+                u->first->prox = aux2;
+                u->first = u->first->prox;
+				j--;
 			}else {
 				puts("C\n");
+				u->first = u->first->prev;
+
+				u->first->prox = proximo;
+				u->first->prev = atual;
+				aux = u->first;
+				u->first = u->first->prox;
+				u->first->prev = aux;
+				u->first = u->first->prev;
+				printf("%d	%d	%d", u->first->prev->info.cod, u->first->info.cod, u->first->prox->info.cod);
+				u->first = u->first->prev;
+				u->first->prox = aux;
+				printf("%d	%d	%d", u->first->prev->info.cod, u->first->info.cod, u->first->prox->info.cod);
+				if(ant.prev == NULL){
+					u->first->prev = NULL;
+				}else{
+				u->first->prev = ant.prev;
+				aux2 = u->first;
+				u->first = u->first->prev;
+				u->first->prox = aux2;
+				u->first = u->first->prox;
+				u->first = u->first->prox;
+				printf("%d	%d	%d", u->first->prev->info.cod, u->first->info.cod, u->first->prox->info.cod);
+				}
+
+
+				/*puts("C\n");
 				u->first->prox = atual->prev;
 				u->first->prev = ant->prev;
 				aux = u->first;
 				u->first = u->first->prev;
 				u->first->prox = aux;
 				u->first = u->first->prox;
+				aux = u->first;
 				u->first = u->first->prox;
 				u->first->prox = proximo;
 				u->first->prev = aux;
@@ -261,15 +297,18 @@ void *insertionSort(TpLista *u){
 					u->first = u->first->prev;
 					u->first->prox = aux;
 					u->first = u->first->prox;
-				}*/
-				u->first = u->first->prev;
+				}//
+				u->first = u->first->prev;*/
 				j--;
 			}
 		}
 		//Ultima alteração         *Arrumar o first
-		
-		
+
+
 	}
+	while(u->first->prev != NULL){
+		u->first = u->first->prev;
+		}
 	return u;
 }
 int main(){
