@@ -161,7 +161,7 @@ TpLista *selectionSort(TpLista *u){
                     u->last->prox = NULL;
                     aux->prev = NULL;
                     u->first = aux;
-                    return u;					//Ultima alteração
+                    return u;					
                     }
 				else if(u->first->prev == NULL){
 					if(aux->prox == NULL){
@@ -207,15 +207,6 @@ TpLista *selectionSort(TpLista *u){
 		return u;
   }
 }
-
-/*void *insertionSort(TpLista *u){
-	system("clear");
-	int i;
-	TpNodo *atual, *ant, *prox;
-	atual = u->last;
-	ant = u->last->prox;
-	prox = u->last->prev;
-}*/
 
 void *insertionSort(TpLista *u){
 	system("clear");
@@ -283,30 +274,6 @@ void *insertionSort(TpLista *u){
 					u->first = u->first->prev;
 					j--;
 				}
-
-				/*puts("C\n");
-				u->first->prox = atual->prev;
-				u->first->prev = ant->prev;
-				aux = u->first;
-				u->first = u->first->prev;
-				u->first->prox = aux;
-				u->first = u->first->prox;
-				aux = u->first;
-				u->first = u->first->prox;
-				u->first->prox = proximo;
-				u->first->prev = aux;
-				aux = u->first;
-				u->first = u->first->prox;
-				u->first->prev = aux;
-				/*if(u->first->prev != NULL){
-					u->first = u->first->prev;
-					u->first->prox = aux;
-					u->first = u->first->prox;
-				}//
-				u->first = u->first->prev;*/
-		}
-		//Ultima alteração         *Arrumar o first
-
 
 	}
 	while(u->first->prev != NULL){
